@@ -42,7 +42,6 @@ let radius = 10; // for particle
 
 class Cat extends EngineObject {
   constructor() {
-    // super(vec2(0, 0), vec2(0.5, 1), tile(0, G.tileSize));
     super(vec2(0, 0), vec2(0.7, 1), tile(0, G.tileSize));
 
     this.setCollision();
@@ -149,7 +148,24 @@ function gameUpdate() {
   }
 
   if (catAlive) {
-    let movementVector = vec2(keyDirection().x, keyDirection().y);
+    // keyDirection() does not work when buliding for js13k
+    // opened issue: https://github.com/KilledByAPixel/LittleJS/issues/152
+    // let movementVector = vec2(keyDirection().x, keyDirection().y);
+
+    // workaround without keyDirection();
+    let movementVector = vec2(0, 0);
+    if (keyIsDown("ArrowUp")) {
+      movementVector.y = 1;
+    }
+    if (keyIsDown("ArrowDown")) {
+      movementVector.y = -1;
+    }
+    if (keyIsDown("ArrowLeft")) {
+      movementVector.x = -1;
+    }
+    if (keyIsDown("ArrowRight")) {
+      movementVector.x = 1;
+    }
 
     // avoid normalizing vec2(0,0)
     // https://github.com/KilledByAPixel/LittleJS/issues/34
@@ -250,7 +266,7 @@ function gameUpdate() {
     let spawnVec = vec2(cat.pos.x + spawnRadius, cat.pos.y + spawnRadius); // spawn vector
     let a = Math.floor(Math.random() * 360);
     let b = rotateVector([spawnVec.x, spawnVec.y], a);
-    updatedSpawnVec = vec2(b[0], b[1]);
+    let updatedSpawnVec = vec2(b[0], b[1]);
 
     if (nextSpawnIn === 0) {
       new Enemy(updatedSpawnVec), vec2(1, 1);
