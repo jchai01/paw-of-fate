@@ -202,11 +202,11 @@ function gameUpdate() {
     // up down left right
     if (movementVector.x == -1 && movementVector.y == 0) {
       catDirection = Direction.W;
-      cat.angle = (90 * Math.PI) / 180;
+      cat.angle = (-90 * Math.PI) / 180;
     }
     if (movementVector.x == 1 && movementVector.y == 0) {
       catDirection = Direction.E;
-      cat.angle = (-90 * Math.PI) / 180;
+      cat.angle = (90 * Math.PI) / 180;
     }
     if (movementVector.x == 0 && movementVector.y == 1) {
       catDirection = Direction.N;
