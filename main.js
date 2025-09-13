@@ -142,7 +142,6 @@ function gameUpdate() {
   // handle input and update the game state
 
   if (cat.timer.get() > 0 && spawnInterval > maxSpawnInterval) {
-    console.log("nextlvl");
     cat.timer.set(timeTillNextStage);
     spawnInterval -= 10;
   }
